@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Torneio {
+  id               String @id @default(uuid())
+  nome             String
+  tipo             String
+  times            Time[]
+  jogos            Jogo[]
+  fases            Fase[]
+  slug             String @unique
+  maximumAttendees Int
+}
+
+model Time {
+  id         String  @id @default(uuid())
+  nome       String
+  vitorias   Int     @default(0)
+  derrotas   Int     @default(0)
+  empates    Int     @default(0)
+  golsPro    Int     @default(0)
+  golsContra Int     @default(0)
+  torneioId  String
+  torneio    Torneio @relation(fields: [torneioId], references: [id])
+}
+
+model Jogo {
+  id         String   @id @default(uuid())
+  torneioId  String
+  partidaId  String?
+  rodada     Int?
+  timeCasaId String
+  timeForaId String
+  golsCasa   Int      @default(0)
+  golsFora   Int      @default(0)
+  partida    Partida? @relation(fields: [partidaId], references: [id])
+  torneio    Torneio  @relation(fields: [torneioId], references: [id])
+}
+
+model Partida {
+  id         String  @id @default(uuid())
+  faseId     String
+  jogos      Jogo[]
+  fase       Fase    @relation(fields: [faseId], references: [id])
+  vencedorId String?
+}
+
+model Fase {
+  id        String    @id @default(uuid())
+  torneioId String
+  nome      String
+  partidas  Partida[]
+  torneio   Torneio   @relation(fields: [torneioId], references: [id])
+}
