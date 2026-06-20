@@ -18,8 +18,11 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@prisma/client": ["./app/generated/prisma"],
+      "@prisma/client/*": ["./app/generated/prisma/*"]
     }
   },
   "include": [

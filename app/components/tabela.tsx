@@ -7,14 +7,14 @@ export default function Tabela() {
           <tr>
             <th className='border px-4 py-2'>Posição</th>
             <th className='border px-4 py-2'>Time</th>
-            <th className='border px-4 py-2'>Jogos</th>
-            <th className='border px-4 py-2'>Vitórias</th>
-            <th className='border px-4 py-2'>Empates</th>
-            <th className='border px-4 py-2'>Derrotas</th>
-            <th className='border px-4 py-2'>Gols Marcados</th>
-            <th className='border px-4 py-2'>Gols Sofridos</th>
-            <th className='border px-4 py-2'>Saldo de Gols</th>
-            <th className='border px-4 py-2'>Pontos</th>
+            <th className='border px-4 py-2'>J</th>
+            <th className='border px-4 py-2'>V</th>
+            <th className='border px-4 py-2'>E</th>
+            <th className='border px-4 py-2'>D</th>
+            <th className='border px-4 py-2'>GP</th>
+            <th className='border px-4 py-2'>GC</th>
+            <th className='border px-4 py-2'>SG</th>
+            <th className='border px-4 py-2'>Pts</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@ export default function Tabela() {
 
   function TimeTabela ({props}: {props: TimeTabelaProps}) {
     return (
-        <tr>
+        <tr className='text-center'>
             <td className='border px-4 py-2'>{props.posicao}</td>
             <td className='border px-4 py-2'>{props.time}</td>
             <td className='border px-4 py-2'>{props.jogos}</td>

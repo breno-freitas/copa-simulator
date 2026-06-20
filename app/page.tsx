@@ -1,5 +1,8 @@
+"use client"
 import Image from "next/image";
 import Tabela from "./components/tabela";
+import { useEffect, useState } from "react";
+import AddTorneio from "./components/addtorneio";
 
 export default function Home() {
   return (
@@ -22,7 +25,8 @@ export default function Home() {
       </div>
       <div>
         <Tabela />
-        <p>tabela</p>
+        <p>criar torneio</p>
+        <AddTorneio />
       </div>
     </main>
   );

@@ -4,12 +4,13 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../app/generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Torneio {
@@ -42,8 +43,8 @@ model Jogo {
   rodada     Int?
   timeCasaId String
   timeForaId String
-  golsCasa   Int      @default(0)
-  golsFora   Int      @default(0)
+  golsCasa   Int     @default(0)
+  golsFora   Int     @default(0)
   partida    Partida? @relation(fields: [partidaId], references: [id])
   torneio    Torneio  @relation(fields: [torneioId], references: [id])
 }
