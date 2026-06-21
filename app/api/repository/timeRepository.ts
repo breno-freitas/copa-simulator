@@ -1,3 +1,4 @@
+'use server'
 import { prisma } from "../../utils/prisma";
 
 export type TimeData = {
@@ -19,4 +20,8 @@ export async function atualizarTime(id: string, data: TimeData) {
 
 export async function excluirTime(id: string) {
   return prisma.time.delete({ where: { id } });
+}
+
+export async function verificarTime(torneioId: string, nome: string){
+  return prisma.time.findFirst({where:{ torneioId, nome }})
 }
