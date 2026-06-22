@@ -2,12 +2,14 @@ import { criarTorneio } from "../api/repository/torneioRepository";
 import { TorneioData } from "../api/repository/torneioRepository";
 import { useState } from "react";
 
-export default function AddTorneio() {
+type Props = { onCreated: (id: string) => void };
+
+export default function AddTorneio({onCreated}: Props) {
   const [nome, setNome] = useState("");
   const [tipo, setTipo] = useState("");
   const [maximumAttendees, setMaximumAttendees] = useState(0);
   const [slug, setSlug] = useState("");
-
+  
     const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -19,7 +21,8 @@ export default function AddTorneio() {
     };
 
     try {
-      await criarTorneio(torneioData);
+      const novo = await criarTorneio(torneioData);
+      onCreated(novo.id)
       alert("Torneio criado com sucesso!");
     } catch (error) {
       console.error("Erro ao criar torneio:", error);

@@ -26,7 +26,6 @@ export default function Home() {
       <div>
         <Tabela />
         <p>criar torneio</p>
-        <AddTorneio />
       </div>
     </main>
   );

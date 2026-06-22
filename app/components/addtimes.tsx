@@ -3,19 +3,23 @@ import { TimeData } from "../api/repository/timeRepository";
 import { useState } from "react";
 import { verificarTime } from "../api/repository/timeRepository";
 
+type Props = {id: string}
 
-export default function AddTime () {
+export default function AddTime ({id}: Props) {
 
     const [nome, setNome] = useState ("")
-    const [torneioId, setTorneioId] = useState ("")
+    const [torneioId, setTorneioId] = useState<string> ("")
 
     const handleSubmit = async (e:React.FormEvent) => {
         e.preventDefault();
 
+        setTorneioId(id)
+        
         const timeData: TimeData = {
             nome,
             torneioId
         };
+
 
         try {
             const verify = await verificarTime(timeData.torneioId, timeData.nome);
