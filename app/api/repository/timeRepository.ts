@@ -14,6 +14,10 @@ export async function consultarTimes() {
   return prisma.time.findMany();
 }
 
+export async function consultarTimesPorTorneio (torneioId: string){
+  return prisma.time.findMany({ where:{ torneioId } })
+}
+
 export async function atualizarTime(id: string, data: TimeData) {
   return prisma.time.update({ where: { id }, data });
 }
