@@ -3,6 +3,7 @@ import { prisma } from "../../utils/prisma";
 export type FaseData = {
     nome: string;
     torneioId: string;
+    numero: number;
 }
 
 export async function criarFase(data: FaseData) {
@@ -11,6 +12,10 @@ export async function criarFase(data: FaseData) {
 
 export async function consultarFases() {
     return prisma.fase.findMany();
+}
+
+export async function consultarFasesPorTorneio(torneioId: string) {
+    return prisma.fase.findMany({ where: { torneioId } });
 }
 
 export async function buscarFasePorId(id: string) {

@@ -2,8 +2,9 @@ import { criarJogo } from "../repository/jogoRepository";
 import { buscarFasePorId } from "../repository/faseRepository";
 import { consultarTorneioPorId } from "../repository/torneioRepository";
 import { atualizarJogo } from "../repository/jogoRepository";
+import { consultarTimesPorTorneio } from "../repository/timeRepository";
 
-export async function gerarJogo (timeCasaid: string, timeForaid: string, faseId: string) {
+export async function gerarJogoCopa (timeCasaid: string, timeForaid: string, faseId: string) {
     const fase = await buscarFasePorId(faseId);
     if (!fase) {
         throw new Error("Fase não encontrada");
@@ -52,4 +53,18 @@ export async function gerarJogo (timeCasaid: string, timeForaid: string, faseId:
 }
 
     return { jogo };
+}
+
+export async function gerarTabelaLiga(torneioId: string) {
+    const times = await consultarTimesPorTorneio(torneioId);
+    const torneio = await consultarTorneioPorId(torneioId);
+    if (!torneio) {
+        throw new Error("Torneio não encontrado");
+    }
+    const rodadas = (torneio.maximumAttendees * 2) - 2;
+    const rodadaAtual = 1;
+
+    while (rodadaAtual <= rodadas) {
+        
+    }
 }

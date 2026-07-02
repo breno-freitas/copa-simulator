@@ -1,9 +1,11 @@
 'use server'
 import { prisma } from "../../utils/prisma";
 
+type TipoTorneio = 'LIGA' | 'COPA';
+
 export type TorneioData = {
   nome: string;
-  tipo: string;
+  tipo: TipoTorneio;
   maximumAttendees: number;
   slug: string;
   jogosPorFase: number;

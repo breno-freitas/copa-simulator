@@ -20,6 +20,10 @@ export async function buscarJogoPorId(id: string) {
   return prisma.jogo.findUnique({ where: { id } });
 }
 
+export async function consultarJogosPorFase(faseId: string) {
+  return prisma.jogo.findMany({ where: { faseId } });
+}
+
 export async function atualizarJogo(id: string, data: jogoData) {
   return prisma.jogo.update({ where: { id }, data });
 }
