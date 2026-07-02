@@ -13,7 +13,7 @@ export async function consultarFases() {
     return prisma.fase.findMany();
 }
 
-export async function buscarFasePorId(id: string, data:FaseData) {
+export async function buscarFasePorId(id: string) {
     return prisma.fase.findUnique({ where: { id } });
 }
 

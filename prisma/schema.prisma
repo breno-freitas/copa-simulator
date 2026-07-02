@@ -17,6 +17,7 @@ model Torneio {
   id               String @id @default(uuid())
   nome             String
   tipo             String
+  jogosPorFase     Int    @default(1)
   times            Time[]
   jogos            Jogo[]
   fases            Fase[]
@@ -37,30 +38,25 @@ model Time {
 }
 
 model Jogo {
-  id         String   @id @default(uuid())
+  id         String  @id @default(uuid())
   torneioId  String
   partidaId  String?
   rodada     Int?
+  faseId     String
   timeCasaId String
   timeForaId String
   golsCasa   Int     @default(0)
   golsFora   Int     @default(0)
-  partida    Partida? @relation(fields: [partidaId], references: [id])
-  torneio    Torneio  @relation(fields: [torneioId], references: [id])
-}
-
-model Partida {
-  id         String  @id @default(uuid())
-  faseId     String
-  jogos      Jogo[]
+  parId      String?
+  torneio    Torneio @relation(fields: [torneioId], references: [id])
   fase       Fase    @relation(fields: [faseId], references: [id])
   vencedorId String?
 }
 
 model Fase {
-  id        String    @id @default(uuid())
+  id        String  @id @default(uuid())
   torneioId String
   nome      String
-  partidas  Partida[]
-  torneio   Torneio   @relation(fields: [torneioId], references: [id])
+  jogos     Jogo[]
+  torneio   Torneio @relation(fields: [torneioId], references: [id])
 }

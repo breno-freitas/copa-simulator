@@ -4,8 +4,8 @@ export type jogoData = {
   timeCasaId: string;
   timeForaId: string;
   faseId: string;
-  resultado: string;
   torneioId: string;
+  parId?: string | null;
 };
 
 export async function criarJogo(data: jogoData) {

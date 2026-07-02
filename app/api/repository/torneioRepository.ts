@@ -6,6 +6,7 @@ export type TorneioData = {
   tipo: string;
   maximumAttendees: number;
   slug: string;
+  jogosPorFase: number;
 };
 
  
@@ -15,6 +16,10 @@ export type TorneioData = {
 
   export async function consultarTorneios() {
     return prisma.torneio.findMany();
+  }
+
+  export async function consultarTorneioPorId(id: string) {
+    return prisma.torneio.findUnique({ where: { id } });
   }
 
   export async function atualizarTorneio(id: string, data: TorneioData) {
