@@ -15,7 +15,13 @@ export async function consultarTimes() {
 }
 
 export async function consultarTimesPorTorneio (torneioId: string){
-  return prisma.time.findMany({ where:{ torneioId } })
+  return prisma.time.findMany({ 
+    where:{ torneioId },
+    orderBy: [
+      {pontos: 'desc'},
+      {vitorias: 'desc'}
+    ]
+  })
 }
 
 export async function atualizarTime(id: string, data: TimeData) {

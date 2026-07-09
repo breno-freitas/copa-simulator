@@ -30,7 +30,7 @@ model Torneio {
 model Time {
   id         String  @id @default(uuid())
   nome       String
-  pontos     Int?
+  pontos     Int?    @default(0)
   vitorias   Int     @default(0)
   derrotas   Int     @default(0)
   empates    Int     @default(0)

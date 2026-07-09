@@ -5,7 +5,6 @@ export default async function Tabela({id}: {id: string}) {
   
   const times = await consultarTimesPorTorneio(id)
 
-
   return (
     <div className='flex flex-col gap-4'>
       <p>{id}</p>
@@ -26,8 +25,8 @@ export default async function Tabela({id}: {id: string}) {
           </tr>
         </thead>
         <tbody>
-            {times.map((time) => (
-                <TimeTabela key= {time.id} props={time} />
+            {times.map((time, index) => (
+                <TimeTabela key= {time.id} props={time} posicao = {index + 1} />
             ))}
         </tbody>
       </table>
@@ -42,22 +41,21 @@ export default async function Tabela({id}: {id: string}) {
     derrotas: number;
     golsPro: number;
     golsContra: number;
-    saldoGols?: number;
     pontos: number;
   }
 
-  function TimeTabela ({props}: {props: TimeTabelaProps}) {
+  function TimeTabela ({props, posicao}: {props: TimeTabelaProps, posicao: number}) {
     return (
         <tr className='text-center'>
-            <td className='border px-4 py-2'>{props.posicao}</td>
-            <td className='border px-4 py-2'>{props.time}</td>
-            <td className='border px-4 py-2'>{props.jogos}</td>
+            <td className='border px-4 py-2'>{posicao}</td>
+            <td className='border px-4 py-2'>{props.nome}</td>
+            <td className='border px-4 py-2'>{(props.vitorias + props.derrotas + props.empates)}</td>
             <td className='border px-4 py-2'>{props.vitorias}</td>
             <td className='border px-4 py-2'>{props.empates}</td>
             <td className='border px-4 py-2'>{props.derrotas}</td>
-            <td className='border px-4 py-2'>{props.golsMarcados}</td>
-            <td className='border px-4 py-2'>{props.golsSofridos}</td>
-            <td className='border px-4 py-2'>{props.saldoGols}</td>
+            <td className='border px-4 py-2'>{props.golsPro}</td>
+            <td className='border px-4 py-2'>{props.golsContra}</td>
+            <td className='border px-4 py-2'>{props.golsPro - props.golsContra}</td>
             <td className='border px-4 py-2'>{props.pontos}</td>
         </tr>
     )}
