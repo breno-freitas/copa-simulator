@@ -24,6 +24,10 @@ export async function consultarTimesPorTorneio (torneioId: string){
   })
 }
 
+export async function consultarTimePorId(id: string) {
+  return prisma.time.findUnique ({where: {id}})
+}
+
 export async function atualizarTime(id: string, data: TimeData) {
   return prisma.time.update({ where: { id }, data });
 }

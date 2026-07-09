@@ -21,6 +21,12 @@ export async function buscarJogoPorId(id: string) {
   return prisma.jogo.findUnique({ where: { id } });
 }
 
+export async function buscarJogosPorRodada(torneioId: string, rodada: number) {
+  return prisma.jogo.findMany({
+    where: {torneioId, rodada}
+  })
+}
+
 export async function consultarJogosPorFase(faseId: string) {
   return prisma.jogo.findMany({ where: { faseId } });
 }
