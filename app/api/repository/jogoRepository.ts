@@ -3,9 +3,10 @@ import { prisma } from "../../utils/prisma";
 export type jogoData = {
   timeCasaId: string;
   timeForaId: string;
-  faseId: string;
+  faseId?: string | null;
   torneioId: string;
   parId?: string | null;
+  rodada?: number | null;
 };
 
 export async function criarJogo(data: jogoData) {

@@ -1,6 +1,14 @@
-export default function Tabela() {
+
+import { consultarTimesPorTorneio } from "../api/repository/timeRepository";
+
+export default async function Tabela({id}: {id: string}) {
+  
+  const times = await consultarTimesPorTorneio(id)
+
+
   return (
     <div className='flex flex-col gap-4'>
+      <p>{id}</p>
       <h2 className='text-2xl font-bold'>Tabela de Classificação</h2>
       <table className='w-full border-collapse'>
         <thead>
@@ -19,7 +27,7 @@ export default function Tabela() {
         </thead>
         <tbody>
             {times.map((time) => (
-                <TimeTabela key={time.posicao} props={time} />
+                <TimeTabela key= {time.id} props={time} />
             ))}
         </tbody>
       </table>
@@ -27,15 +35,14 @@ export default function Tabela() {
   )}
 
   interface TimeTabelaProps {
-    posicao: number;
-    time: string;
-    jogos: number;
+    id: string
+    nome: string;
     vitorias: number;
     empates: number;
     derrotas: number;
-    golsMarcados: number;
-    golsSofridos: number;
-    saldoGols: number;
+    golsPro: number;
+    golsContra: number;
+    saldoGols?: number;
     pontos: number;
   }
 
@@ -54,42 +61,3 @@ export default function Tabela() {
             <td className='border px-4 py-2'>{props.pontos}</td>
         </tr>
     )}
-
-    let times = [
-        {
-            posicao: 1,
-            time: 'Brasil',
-            jogos: 3,
-            vitorias: 2,
-            empates: 1,
-            derrotas: 0,
-            golsMarcados: 5,
-            golsSofridos: 2,
-            saldoGols: 3,
-            pontos: 7
-        },
-        {
-            posicao: 2,
-            time: 'Argentina',
-            jogos: 3,
-            vitorias: 2,
-            empates: 0,
-            derrotas: 1,
-            golsMarcados: 4,
-            golsSofridos: 3,
-            saldoGols: 1,
-            pontos: 6
-        },
-        {
-            posicao: 3,
-            time: 'França',
-            jogos: 3,
-            vitorias: 1,
-            empates: 1,
-            derrotas: 1,
-            golsMarcados: 3,
-            golsSofridos: 3,
-            saldoGols: 0,
-            pontos: 4
-        },
-    ]

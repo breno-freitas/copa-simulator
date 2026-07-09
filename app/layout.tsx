@@ -27,6 +27,18 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <nav className='flex justify-between gap-4 bg-gray-400 text-white p-4 radius-lg'>  
+        <div>
+          <button>Options</button>
+        </div>
+        <div>
+          <h1>Copa Simulator</h1>
+        </div>
+        <div className='flex gap-4'>
+          <button>Login</button>
+          <button>Register</button>
+        </div>
+      </nav>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

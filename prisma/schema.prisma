@@ -13,15 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum TipoTorneio {
-  LIGA
-  COPA
-}
+
 
 model Torneio {
   id               String @id @default(uuid())
   nome             String
-  tipo             TipoTorneio
+  tipo             String
   jogosPorFase     Int    @default(1)
   times            Time[]
   jogos            Jogo[]
@@ -33,6 +30,7 @@ model Torneio {
 model Time {
   id         String  @id @default(uuid())
   nome       String
+  pontos     Int?
   vitorias   Int     @default(0)
   derrotas   Int     @default(0)
   empates    Int     @default(0)
@@ -47,14 +45,14 @@ model Jogo {
   torneioId  String
   partidaId  String?
   rodada     Int?
-  faseId     String
+  faseId     String?
   timeCasaId String
   timeForaId String
   golsCasa   Int     @default(0)
   golsFora   Int     @default(0)
   parId      String?
   torneio    Torneio @relation(fields: [torneioId], references: [id])
-  fase       Fase    @relation(fields: [faseId], references: [id])
+  fase       Fase?    @relation(fields: [faseId], references: [id])
   vencedorId String?
 }
 

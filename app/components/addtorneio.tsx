@@ -8,7 +8,7 @@ type Props = { onCreated: (id: string) => void };
 
 export default function AddTorneio({onCreated}: Props) {
   const [nome, setNome] = useState("");
-  const [tipo, setTipo] = useState("");
+  const [tipo, setTipo] = useState("LIGA");
   const [maximumAttendees, setMaximumAttendees] = useState(0);
   const [slug, setSlug] = useState("");
   const [jogosPorFase, setJogosPorFase] = useState(1);
@@ -19,7 +19,7 @@ export default function AddTorneio({onCreated}: Props) {
 
     const torneioData: TorneioData = {
       nome,
-      tipo: tipo as 'LIGA' | 'COPA',
+      tipo,
       jogosPorFase,
       maximumAttendees,
       slug,
@@ -28,71 +28,75 @@ export default function AddTorneio({onCreated}: Props) {
     try {
       novo = await criarTorneio(torneioData);
       onCreated(novo.id)
-      alert("Torneio criado com sucesso!");
+      //alert("Torneio criado com sucesso!");
+      alert(`DEBUG FRONT-END -> Nome: ${nome} | Tipo: ${tipo}`);
     } catch (error) {
       console.error("Erro ao criar torneio:", error);
       alert("Erro ao criar torneio.");
     }
-
-    if (novo) {
-      if (novo.tipo === "COPA") {
-        try {
-          await gerarFase(novo.id);
-          alert("Fase inicial gerada com sucesso!");
-        } catch (error) {
-          console.error("Erro ao gerar fase:", error);
-          alert("Erro ao gerar fase.");
-        }
-      }
-
-      else if (novo.tipo === "LIGA") {
-
-      }
-    }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Nome"
-        value={nome}
-        onChange={(e) => setNome(e.target.value)}
-      />
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 backdrop-blur-sm">
+      <form onSubmit={handleSubmit} className="flex flex-col items-left justify-center gap-4 border-2 border-gray-300 rounded-lg p-4 ">
 
-      <select
-        value={tipo}
-        onChange={(e) => setTipo(e.target.value)}
-      >
-        <option value="LIGA">LIGA</option>
-        <option value="COPA">COPA</option>
-      </select>
+        <div className="flex gap-2 items-left">
+          <p>NOME:</p>
+          <input
+            type="text"
+            placeholder="Nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+        </div>
 
-      <input
-        type="number"
-        placeholder="Máximo de Participantes"
-        value={maximumAttendees}
-        onChange={(e) => setMaximumAttendees(Number(e.target.value))}
-      />
+        <div className="flex gap-2 items-left">
+          <p>TIPO DE TORNEIO:</p>
+          <select
+            value={tipo}
+            onChange={(e) => setTipo(e.target.value)}
+          >
+            <option value="LIGA">LIGA</option>
+            <option value="COPA">COPA</option>
+          </select>
+        </div>
 
-      <select
-        value={jogosPorFase}
-        onChange={(e) => setJogosPorFase(Number(e.target.value))}
-      >
-        <option value={1}>1 jogo por fase</option>
-        <option value={2}>2 jogos por fase</option>
-      </select>
-      <input
-        type="text"
-        placeholder="Slug"
-        value={slug}
-        onChange={(e) => setSlug(e.target.value)}
-      />
-      <button type="submit">Criar Torneio</button>
-    </form>
+        <div className="flex gap-2 items-left">
+          <p>NUMERO DE PARTICIPANTES:</p>
+          <input
+            type="number"
+            placeholder="Máximo de Participantes"
+            value={maximumAttendees}
+            onChange={(e) => setMaximumAttendees(Number(e.target.value))}
+          />
+        </div>
+
+        <div className="flex gap-2 items-left">
+          <p>JOGOS POR FASE:</p>
+          <select
+            value={jogosPorFase}
+            onChange={(e) => setJogosPorFase(Number(e.target.value))}
+          >
+            <option value={1}>1 jogo por fase</option>
+            <option value={2}>2 jogos por fase</option>
+          </select>
+        </div>
+
+        <div className="flex gap-2 items-left">
+          <p>SLUG:</p>
+          <input
+            type="text"
+            placeholder="Slug"
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+          />
+        </div>
+
+        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+          Criar Torneio
+        </button>
+      </form>
+    </div>
   );
 }
-      function consultarTimesPorTorneio(id: string) {
-        throw new Error("Function not implemented.");
-      }
 

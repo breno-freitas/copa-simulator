@@ -1,3 +1,4 @@
+"use server"
 import { criarJogo } from "../repository/jogoRepository";
 import { buscarFasePorId } from "../repository/faseRepository";
 import { consultarTorneioPorId } from "../repository/torneioRepository";
@@ -56,15 +57,58 @@ export async function gerarJogoCopa (timeCasaid: string, timeForaid: string, fas
 }
 
 export async function gerarTabelaLiga(torneioId: string) {
-    const times = await consultarTimesPorTorneio(torneioId);
+    let times = await consultarTimesPorTorneio(torneioId);
     const torneio = await consultarTorneioPorId(torneioId);
     if (!torneio) {
         throw new Error("Torneio não encontrado");
     }
     const rodadas = (torneio.maximumAttendees * 2) - 2;
-    const rodadaAtual = 1;
+    const turno = rodadas / 2;
+    let rodadaAtual = 1;
+    
 
-    while (rodadaAtual <= rodadas) {
-        
+    for (rodadaAtual; rodadaAtual <= turno; rodadaAtual++) {
+        for (let i = 0; i < times.length / 2; i++) {
+            let timeCasa = times[i];
+            let timeFora = times[times.length - 1 - i];
+
+            if (i === 0 && rodadaAtual % 2 === 0) {
+                const temp = timeCasa;
+                timeCasa = timeFora;
+                timeFora = temp;
+            }
+
+            const jogoTurnoData = {
+                timeCasaId: timeCasa.id,
+                timeForaId: timeFora.id,
+                rodada: rodadaAtual,
+                torneioId: torneioId,
+            };
+            try {
+                await criarJogo(jogoTurnoData);
+            } catch (error) {
+                console.error(`Erro ao criar jogo rodada ${rodadaAtual}`, error);
+                throw new Error("Erro ao criar jogo");
+            }
+
+            const JogoReturnoData = {
+                timeCasaId: timeFora.id,
+                timeForaId: timeCasa.id,
+                rodada: rodadaAtual + turno,
+                torneioId: torneioId,
+            };
+            try {
+                await criarJogo(JogoReturnoData);
+            } catch (error) {
+                console.error(`Erro ao criar jogo de volta rodada ${rodadaAtual + turno}`, error);
+                throw new Error("Erro ao criar jogo de volta");
+            }
+        }
+        let ultimoTime = times.pop();
+        if (ultimoTime) {
+            times.splice(1, 0, ultimoTime);
+        }
     }
+    console.log("Tabela de jogos gerada com sucesso");
+    return { message: "Tabela de jogos gerada com sucesso" };
 }

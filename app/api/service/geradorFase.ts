@@ -1,3 +1,4 @@
+"use server"
 import { prisma } from "../../utils/prisma";
 import {consultarTorneioPorId} from "../repository/torneioRepository";
 import {consultarFasesPorTorneio} from "../repository/faseRepository";
