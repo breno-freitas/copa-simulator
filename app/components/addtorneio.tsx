@@ -65,7 +65,7 @@ export default function AddTorneio({onCreated}: Props) {
           <p>NUMERO DE PARTICIPANTES:</p>
           <input
             type="number"
-            placeholder="Máximo de Participantes"
+            placeholder="Numero de Participantes"
             value={maximumAttendees}
             onChange={(e) => setMaximumAttendees(Number(e.target.value))}
           />

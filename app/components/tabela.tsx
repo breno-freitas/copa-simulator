@@ -10,9 +10,9 @@ export default async function Tabela({id}: {id: string}) {
       <p>{id}</p>
       <h2 className='text-2xl font-bold'>Tabela de Classificação</h2>
       <table className='w-full border-collapse'>
-        <thead>
+        <thead className="bg-gray-700">
           <tr>
-            <th className='border px-4 py-2'>Posição</th>
+            <th className='border px-4 py-2'>#</th>
             <th className='border px-4 py-2'>Time</th>
             <th className='border px-4 py-2'>J</th>
             <th className='border px-4 py-2'>V</th>
@@ -24,7 +24,7 @@ export default async function Tabela({id}: {id: string}) {
             <th className='border px-4 py-2'>Pts</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="">
             {times.map((time, index) => (
                 <TimeTabela key= {time.id} props={time} posicao = {index + 1} />
             ))}

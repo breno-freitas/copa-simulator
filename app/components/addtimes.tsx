@@ -22,7 +22,7 @@ export default function AddTime ({id}: Props) {
     const [numtimes, setNumTimes] = useState<number>(0);
     const [maximumAttendees, setMaximumAttendees] = useState<number>(0);
 
-    async function maximumAttendeesTorneio() {
+    async function MaximumAttendeesTorneio() {
         let torneio
         try {
             torneio = await consultarTorneioPorId(id);
@@ -39,7 +39,7 @@ export default function AddTime ({id}: Props) {
         setMaximumAttendees(torneio.maximumAttendees);
     }
 
-    maximumAttendeesTorneio();
+    MaximumAttendeesTorneio();
 
     const handleGetTimes = async () => {
         const times = await consultarTimesPorTorneio(id)
